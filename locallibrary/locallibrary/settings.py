@@ -15,7 +15,7 @@ DEBUG = config('DJANGO_DEBUG')
 
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.herokuapp.com']
 
 
 INSTALLED_APPS = [
