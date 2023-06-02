@@ -4,7 +4,6 @@ from django.core.exceptions import ValidationError
 import datetime
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-from codemirror import CodeMirrorTextarea
 
 class edit_new_code(forms.Form):
 
