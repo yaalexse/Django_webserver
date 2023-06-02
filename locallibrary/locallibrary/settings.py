@@ -15,9 +15,8 @@ DEBUG = config('DJANGO_DEBUG')
 
 
 
-ALLOWED_HOSTS = ['.herokuapp.com','17.0.0.1']
+ALLOWED_HOSTS = ['forthallgym.herokuapp.com','127.0.0.1']
 
-CSRF_TRUSTED_ORIGINS = ['https://herokuapp.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
