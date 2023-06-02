@@ -1,0 +1,47 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<head>
+  <div class="container">
+    <div class="login-box">
+      <h1><span id="dynamic-title"></span></h1>
+      <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <table>
+          <tr>
+            <td>{{ form.username.label_tag }}</td>
+            <td>{{ form.username }}</td>
+          </tr>
+          <tr>
+            <td>{{ form.password.label_tag }}</td>
+            <td>{{ form.password }}</td>
+          </tr>
+        </table>
+        <input type="submit" value="login">
+        <input type="hidden" name="next" value="{{ next }}">
+      </form>
+      <a href="{% url 'signup' %}" class="sign-up-button">Sign up</a>
+    </div>
+  </div>
+  <script>
+    // JavaScript code for typing effect
+    window.onload = function() {
+      var titleElement = document.getElementById("dynamic-title");
+      var dynamicTitle = "Welcome on the official website of the Supmecaero embedded system team: Where we share our most top secret codes to make rockets fly!";
+      
+      var speed = 50; // Typing speed in milliseconds
+      var i = 0;
+
+      function typeWriter() {
+        if (i < dynamicTitle.length) {
+          titleElement.innerHTML += dynamicTitle.charAt(i);
+          i++;
+          setTimeout(typeWriter, speed);
+        }
+      }
+
+      typeWriter();
+    };
+  </script>
+</head>
+{% endblock %}

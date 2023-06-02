@@ -1,0 +1,61 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>New code</h1>
+  <span>Status: {{ is_submitted }}</span>
+  <p>Creator: {{ user.get_username }}</p>
+  <form action="" method="POST">
+    {% csrf_token %}
+    <table>
+      {{ form.as_table }}
+    </table>
+    <input type="submit" value="Submit">
+  </form>
+  <button id="compileButton">Compile Code</button>
+  <div id="compilationResult" style="border: 1px solid #111111; padding: 10px; margin-top: 10px;"></div>
+
+  {% load static %}
+  <script src="{% static 'lib/codemirror.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'lib/codemirror.css' %}">
+  <script src="{% static 'mode/javascript/javascript.js' %}"></script>
+
+  <script>
+    var codeTextarea = document.getElementById("id_code_content");
+
+    var foo_codemirror = CodeMirror.fromTextArea(codeTextarea, {
+      lineNumbers: true,
+      indentUnit: 4,
+      lineSeparator: '__LINEBREAK__',
+      value:'void setup(){}\n void loop(){}\n',
+    });
+
+    function updateTextArea() {
+      var content = foo_codemirror.getValue();
+      content = content.replace(/__LINEBREAK__/g, " ");
+      codeTextarea.value = content;
+    }
+    
+    foo_codemirror.on('change', updateTextArea);
+
+    document.getElementById('compileButton').addEventListener('click', function () {
+  var form = document.querySelector('form');
+  var formData = new FormData(form);
+
+  // Replace line breaks with a token (e.g., "__LINEBREAK__")
+  var codeContent = formData.get('code_content');
+  codeContent = codeContent.replace('/__LINEBREAK__/g', "\n");
+  formData.set('code_content', codeContent);
+
+  fetch('compil', {
+    method: 'POST',
+    body: formData
+  })
+    .then(response => response.text())
+    .then(compilationResult => {
+      // Replace the token back to line breaks in the compilation result
+      compilationResult = compilationResult.replace(/\n/g, "\n");
+      document.getElementById('compilationResult').textContent = compilationResult;
+    });
+});
+  </script>
+{% endblock %}

@@ -1,0 +1,21 @@
+
+.code-box {
+  padding: 10px;
+  margin-bottom: 10px;
+  color: white;
+  font-weight: bold;
+}
+
+.edit-button {
+    display: inline-block;
+    background-color: lightgrey !important;
+    padding: 5px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: black;
+    font-size: 14px; /* Adjust the font size as needed */
+  }
+  
+.edit-button:hover {
+    background-color: grey;
+  }

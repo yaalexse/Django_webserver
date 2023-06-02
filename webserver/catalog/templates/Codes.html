@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Book List</h1>
+  {% if list_ino_codes %}
+    <ul>
+      {% for code in list_ino_codes %}
+      <li>
+        <a href="{{ book.get_absolute_url }}">{{ code.title }}</a>
+        ({{code.language}})
+      </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no code in the library.</p>
+  {% endif %}
+{% endblock %}

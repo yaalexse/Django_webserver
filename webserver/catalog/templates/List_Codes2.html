@@ -1,0 +1,12 @@
+{%extends "base_generic.html"%}
+
+{% block content %}
+    <h1>List_Codes2</h1>
+        <ul>
+            {% for Code in object_list %}
+            <li>
+            <a href="{{Code.get_absolute_url }}">{{Code.title}}</a>
+            </li>
+            {% endfor %}
+        </ul>
+{% endblock %}

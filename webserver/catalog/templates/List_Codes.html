@@ -1,0 +1,23 @@
+{% extends "base_generic.html" %}
+{% block content %}
+  <h1>Code library 
+    {% if user.is_authenticated %}
+    <a href="{% url 'edit_a_new_code' %}">Edit a new code</a>
+    {% endif %}
+  </h1>
+  {% if ino_codes %}
+    <div class="code-blocks">
+      {% for x in ino_codes %}
+        <div class="code-block">
+          <a href="{{ x.get_absolute_url }}">{{ x.title }}</a>
+          <div class="code-info">
+            <span>{{ x.language }}, {{ x.author_id.name}}, {{ x.description}}</span>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>This thing is not working.</p>
+  {% endif %}
+{% endblock %}
+

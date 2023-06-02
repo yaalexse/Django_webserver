@@ -1,0 +1,33 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1><span id="dynamic-title"></span></h1>
+  <h2>Server content:</h2>
+  <p>The library has the following record counts:</p>
+  <ul>
+    <li><strong>Codes:</strong> {{ num_codes }}</li>
+    <li><strong>Authors:</strong> {{ num_authors }}</li>
+  </ul>
+  <p>A webserver developped by:  <em> Alexei Yadrin</em> </p>
+
+<script>
+  // JavaScript code for typing effect
+  window.onload = function() {
+    var titleElement = document.getElementById("dynamic-title");
+    var dynamicTitle = "Welcome on the official website of the Supmecaero embedded system team.";
+    
+    var speed = 50; // Typing speed in milliseconds
+    var i = 0;
+
+    function typeWriter() {
+      if (i < dynamicTitle.length) {
+        titleElement.innerHTML += dynamicTitle.charAt(i);
+        i++;
+        setTimeout(typeWriter, speed);
+      }
+    }
+
+    typeWriter();
+  };
+</script>
+{% endblock %}

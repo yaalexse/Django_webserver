@@ -1,0 +1,84 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>{{ object.title }}</h1>
+
+<p><strong>Author: &nbsp;  </strong>{{ object.author_id.name }}</p>
+<!-- author detail link not yet defined -->
+<p><strong>Language:  &nbsp; </strong> {{ object.language }}</p>
+<p><strong>Description: &nbsp; </strong> {{ object.description }}</p>
+<!--<p><strong>Content:</strong> {{ object.content|linebreaks }}</p>-->
+
+<head>
+    <title>Code Box Example</title>
+    <style>
+        .code-box {
+            background-color: #24292e; /* GitHub's background color */
+            color: #f6f8fa; /* Text color */
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .keyword-orange {
+            color: orange;
+            font-weight: bold;
+        }
+
+        .keyword-green {
+            color: green;
+            font-weight: bold;
+        }
+
+        .keyword-blue {
+            color: #4287f5; /* Lighter blue color */
+            font-weight: bold;
+        }
+
+        .keyword-yellow {
+            color: yellow;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="code-box">
+        <pre id="code-container">{{ object.content|linebreaksbr }}</pre>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var content = document.getElementById('code-container').innerHTML;
+            content = content.replace(/__LINEBREAK__/g, '\n');
+
+            // Define the keyword arrays
+            var orangeKeywords = ['loop', 'setup', 'beginTransmission', 'Wire', 'write', 'endTransmission', 'delay', 'pinMode', 'digitalWrite','onReceive','read','begin'];
+            var greenKeywords = ['#include'];
+            var blueKeywords = ['int', 'void', 'setup', 'if', 'while'];
+
+            // Replace the keywords with span elements having the appropriate class
+            orangeKeywords.forEach(function(keyword) {
+                var pattern = new RegExp('\\b' + keyword + '\\b', 'g');
+                content = content.replace(pattern, '<span class="keyword-orange">' + keyword + '</span>');
+            });
+
+            greenKeywords.forEach(function(keyword) {
+                var pattern = new RegExp('\\b' + keyword + '\\b', 'g');
+                content = content.replace(pattern, '<span class="keyword-green">' + keyword + '</span>');
+            });
+
+            blueKeywords.forEach(function(keyword) {
+                var pattern = new RegExp('\\b' + keyword + '\\b', 'g');
+                content = content.replace(pattern, '<span class="keyword-blue">' + keyword + '</span>');
+            });
+
+            content = content.replace(/\d+/g, '<span class="keyword-yellow">$&</span>');
+
+            document.getElementById('code-container').innerHTML = content;
+        });
+    </script>
+</body>
+<p><strong>Creation Date:</strong> {{ object.timestamp }}</p>
+
+
+{% endblock %}
